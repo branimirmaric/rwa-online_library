@@ -1,0 +1,86 @@
+﻿@model WebApp.ViewModels.SearchVM
+
+<table class="table table-striped table-hover text-center align-middle">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().GenreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Isbn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Availability)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    <h5><span class="badge bg-primary">@item.GenreName</span></h5>
+                </td>
+                <td class="text-truncate" style="max-width: 150px;" title="@item.Description">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Availability)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        @for (int i = Model.FromPager; i <= Model.ToPager; i++)
+        {
+            var linkText = @i.ToString();
+            if (i != 1 && i == Model.FromPager)
+            {
+                linkText = "«";
+            }
+            else if (i != Model.LastPage && i == Model.ToPager)
+            {
+                linkText = "»";
+            }
+
+            var linkClass = "page-item";
+            if (i == Model.Page)
+            {
+                linkClass = "page-item active";
+            }
+            <li class="@linkClass">
+                @Html.ActionLink(
+                         @linkText,
+                         "Search",
+                         new
+                         {
+                             q = Model.Q,
+                             orderby = Model.OrderBy,
+                             page = i,
+                             size = Model.Size
+                         },
+                         new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+</nav>

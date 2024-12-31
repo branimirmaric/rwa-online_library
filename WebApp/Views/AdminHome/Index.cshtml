@@ -1,0 +1,12 @@
+﻿@{
+    var user = this.ViewContext.HttpContext.User;
+    bool loggedIn = false;
+    string username = "";
+    if (user != null && !string.IsNullOrEmpty(user.Identity?.Name))
+    {
+        loggedIn = true;
+        username = user.Identity.Name;
+    }
+}
+
+<h1 class="text-center display-5">Welcome @username</h1>

@@ -1,0 +1,34 @@
+﻿@model WebApp.ViewModels.LocationVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center text-dark my-3">Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.State)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+    </dl>
+</div>
+<div class="form-group">
+    <a asp-action="Index" class="btn btn-outline-primary mt-3 bi bi-arrow-left-circle"> Go back</a>
+</div>

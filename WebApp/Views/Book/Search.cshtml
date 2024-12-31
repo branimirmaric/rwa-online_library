@@ -1,0 +1,62 @@
+﻿@model WebApp.ViewModels.SearchVM
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1 class="text-center text-dark my-3">List of Books</h1>
+
+<form asp-action="Search" method="GET">
+    <div class="row">
+        <div class="col-8">
+            <input asp-for="Q" class="form-control" placeholder="Search book" />
+        </div>
+        <div class="col-auto">
+            <label class="form-label mt-1">Sort by:</label>
+        </div>
+        <div class="col-auto">
+            <select asp-for="OrderBy" class="form-select">
+                <option value="id">(default)</option>
+                <option>Title</option>
+                <option>Author</option>
+                <option>Genre</option>
+                <option>Description</option>
+                <option>Isbn</option>
+                <option>Availability</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <select asp-for="Size" class="form-select">
+                <option>3</option>
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <input type="submit" value="Go" name="submit" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<div id="searchPartialPlaceholder">
+    <partial name="_SearchPartial" />
+</div>
+
+@section Scripts {
+    <script>
+        $("body").on("click", "a.page-link", function (e) {
+            e.preventDefault();
+
+            const urlParts = e.target.href.split("?");
+            const base = urlParts[0];
+            const query = urlParts.length > 1 ? urlParts[1] : null;
+            if (query) {
+                $("#searchPartialPlaceholder").load(`${base}Partial?${query}`);
+            } else {
+                $("#searchPartialPlaceholder").load(`${base}Partial`);
+            }
+        })
+    </script>
+}
